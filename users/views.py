@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordResetView
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -24,3 +24,6 @@ class UserRegisterView(CreateView):
     extra_context = {'title': 'Регистрация'}
     success_url = reverse_lazy('users:index')
 
+
+class CustomPasswordResetView(PasswordResetView):
+    success_url = reverse_lazy('users:password_reset_done')
