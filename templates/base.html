@@ -1,15 +1,57 @@
-<!doctype html>
+{% load static %}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'costs/img/title.png' %}"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'costs/css/style.css' %}" />
     <title>{{ title|default:"SiteName" }}</title>
 </head>
 <body>
-    <div class="content">
-        {% block content %}{% endblock %}
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <ul class="menu-nav">
+                    <li><a href="" class="logo">
+                        <img src="{% static 'costs/img/main_logo.png' %}" alt="" width="50px">
+                        <h2>Costs</h2>
+                    </a></li>
+                </ul>
+                <div class="login-block">
+                    {% if user.is_authenticated %}
+                    <p><a href="{% url 'users:logout' %}" class="logout underline-link">Выйти</a></p>
+                    {% else %}
+                        <p>
+                            <a href="{% url 'users:login' %}" class="login underline-link">Войти</a> |
+                            <a href="{% url 'users:register' %}" class="login underline-link">Регистрация</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <div class="container">
+                <div class="content">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+                <div class="social-medias">
+                    <a href="https://t.me/fossowan" target="_blank">
+                        <img src="{% static 'costs/img/social_media_logos/tg_logo.svg' %}" alt="https://t.me/fossowan">
+                    </a>
+                    <a href="https://github.com/buzzakka" target="_blank">
+                        <img src="{% static 'costs/img/social_media_logos/github_logo.svg' %}" alt="https://github.com/buzzakka">
+                    </a>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

@@ -22,9 +22,6 @@ class UserLoginView(LoginView):
     extra_context = {'title': 'Авторизация'}
     redirect_authenticated_user = True
 
-    def get_success_url(self) -> str:
-        return reverse_lazy('users:index')
-
 
 def logout_user(request):
     logout(request)
@@ -35,9 +32,6 @@ class UserRegisterView(UnauthorizedOnlyMixin, CreateView):
     template_name = 'users/register.html'
     form_class = UserRegisterForm
     extra_context = {'title': 'Регистрация'}
-
-    def get_success_url(self) -> str:
-        return reverse_lazy('users:index')
 
 
 class UserChangePasswordView(LoginRequiredMixin, PasswordChangeView):

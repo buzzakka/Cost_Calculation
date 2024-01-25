@@ -23,6 +23,4 @@ urlpatterns = [
          ),
          name='password_reset_confirm'),
     path('password-reset/complete/', UserPasswordResetCompleteView.as_view(), name='password_reset_complete'),
-
-    path('index/', TemplateView.as_view(template_name='index.html'), name='index')
 ]
