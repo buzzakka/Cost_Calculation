@@ -6,4 +6,5 @@ app_name = 'costs'
 
 urlpatterns = [
     path('main', MainView.as_view(), name='main'),
+    path('graph', GraphView.as_view(), name='graph'),
 ]
