@@ -4,6 +4,6 @@
 
 {% block content %}
     {% for cost in history_list %}
-        <p>{{ cost }}</p>
+        <p>{{ cost.date|date:"Y" }}</p>
     {% endfor %}
 {% endblock %}
