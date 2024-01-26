@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(Cost)
 class CostAdmin(admin.ModelAdmin):
-    list_display = ('user', 'category', 'value')
+    list_display = ('user', 'category', 'value', 'date')
 
 
 @admin.register(CostCategory)

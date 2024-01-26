@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    {% for cost in history_list %}
+        <p>{{ cost }}</p>
+    {% endfor %}
+{% endblock %}
