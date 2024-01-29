@@ -26,10 +26,9 @@ class CustomCategoriesAPIViewSet(ModelViewSet):
     filter_backends = (IsOwnerFilterBackend, DjangoFilterBackend)
     filterset_fields = ('id', 'name')
 
-    def create(self, request, *args, **kwargs):
-        response = super(CustomCategoriesAPIViewSet, self).create(request, *args, **kwargs)
-        response.data['user'] = self.request.user
-        return Response(response)
+    def perform_create(self, serializer):
+        # Устанавливаем текущего пользователя в поле "user" модели CostCategory
+        serializer.save(user=self.request.user)
 
 
 class CostsAPIViewSet(ModelViewSet):
@@ -39,4 +38,8 @@ class CostsAPIViewSet(ModelViewSet):
     queryset = Cost.objects.order_by('-date')
     serializer_class = CostsSerializer
     filter_backends = (IsOwnerFilterBackend, DjangoFilterBackend)
-    filterset_fields = ('id', 'value', 'category', 'description')
+    filterset_fields = ('id', 'value', 'category__id', 'category__name', 'description')
+
+    def perform_create(self, serializer):
+        # Устанавливаем текущего пользователя в поле "user" модели Cost
+        serializer.save(user=self.request.user)

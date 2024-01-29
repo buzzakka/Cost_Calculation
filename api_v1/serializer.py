@@ -2,7 +2,7 @@ from rest_framework import serializers
 from costs.models import *
 
 
-class CategoriesSerializer(serializers.HyperlinkedModelSerializer):
+class CategoriesSerializer(serializers.ModelSerializer):
     """
         Сериализатор для категорий трат
     """
@@ -11,11 +11,11 @@ class CategoriesSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 
-class CostsSerializer(serializers.HyperlinkedModelSerializer):
+class CostsSerializer(serializers.ModelSerializer):
     """
         Сериализатор для затрат пользователя
     """
-    category = CategoriesSerializer(read_only=True)
+    # category = CategoriesSerializer(read_only=True)
 
     class Meta:
         model = Cost
