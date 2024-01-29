@@ -1,12 +1,14 @@
 from django.urls import path, include, re_path
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-
+from rest_framework.routers import SimpleRouter
 from .views import *
 
+router = SimpleRouter()
+router.register(r'', CustomCategoriesAPIViewSet)
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
-    path('standart-categories/', CategoriesAPIView.as_view()),
+    path('common-categories/', StandartCategoriesAPIView.as_view()),
+    path('custom-categories/', include(router.urls)),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]

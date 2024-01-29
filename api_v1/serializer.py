@@ -5,4 +5,4 @@ from costs.models import *
 class CategoriesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CostCategory
-        fields = ['id', 'name', 'is_custom']
+        fields = ['id', 'name']
