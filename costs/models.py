@@ -9,7 +9,8 @@ class CostCategory(models.Model):
     """
     name = models.CharField(max_length=100, unique=True, verbose_name='Название')
     is_custom = models.BooleanField(default=True, verbose_name='Добавлена пользователем')
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True,
+                             verbose_name='Пользователь')
 
     def __str__(self):
         return self.name
