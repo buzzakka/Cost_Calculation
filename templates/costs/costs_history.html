@@ -10,12 +10,15 @@
             {% for month_num, costs in month.items %}
                 <h3 class="month">{{ month_num|ru_month }}</h3>
                 {% for cost in costs %}
-                    <div class="cost">
-                        <p class="cost-value"> {{ cost.value }} руб. </p>
-                        <p class="cost-category"> {{ cost.category }} </p>
-                        {% if cost.description %}
-                            <p class="cost-description"> {{ cost.description }} </p>
-                        {% endif %}
+                    <div class="block cost">
+                        <div class="cost__left">
+                            <p class="cost-value">Сумма: {{ cost.value }} руб. </p>
+                            <p class="cost-category">Категория: {{ cost.category }} </p>
+                            <p class="cost-date">Дата: {{ cost.date }} </p>
+                        </div>
+                        <div class="cost__right">
+                            <p class="cost-description__text">Описание: {{ cost.description|default:'Описание отсутсвует' }} </p>
+                        </div>
                     </div>
                 {% endfor %}
             {% endfor %}

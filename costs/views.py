@@ -43,7 +43,7 @@ class CostsHistory(LoginRequiredMixin, ListView):
     context_object_name = 'history_list'
 
     def get_queryset(self):
-        return Cost.objects.filter(user=self.request.user).order_by('date')
+        return Cost.objects.filter(user=self.request.user).order_by('-date')
 
     def get_costs_history_data(self):
         """
@@ -70,7 +70,7 @@ class CostsHistory(LoginRequiredMixin, ListView):
                 month = cost.date.month
                 data[year][month] = []
             data[year][month].append(
-                {'value': cost.value, 'category': cost.category, 'description': cost.description}
+                {'value': cost.value, 'category': cost.category, 'description': cost.description, 'date': cost.date}
             )
         return data
 
