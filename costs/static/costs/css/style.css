@@ -34,34 +34,15 @@ html, body {
     margin: 0 auto;
 }
 
-.underline-link {
+.underline-link, .simple-link {
 	color: #3399FF; /* Цвет обычной ссылки */
     position: relative;
     cursor: pointer;
     text-decoration: none; /* Убираем подчеркивание */
 }
-.underline-link:after {
-	content: "";
-    display: block;
-    position: absolute;
-    right: 0;
-    bottom: -3px;
-    width: 0;
-    height: 2px; /* Высота линии */
-    background-color: #3399FF; /* Цвет подчеркивания при исчезании линии*/
-    transition: width 0.5s; /* Время эффекта */
-}
 
-.underline-link:hover:after {
-	content: "";
-    width: 100%;
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: -3px;
-    height: 2px; /* Высота линии */
-    background-color: #3399FF; /* Цвет подчеркивания при появлении линии */
-    transition: width 0.5s;  /* Время эффекта */
+.simple-link:hover {
+    text-decoration: underline;
 }
 
 h2 {
@@ -179,9 +160,18 @@ header .container {
 }
 
 .cost {
-    /*background-color: #FFFFFF;*/
-    /*border-radius: 15px;*/
     margin-bottom: 15px;
+    display: flex;
+}
+
+.cost__left {
+    width: 280px;
+    border-right: 2px solid #EDEEF0;
+    margin-right: 20px;
+}
+
+.cost-title {
+    font-weight: 600;
 }
 
 /*

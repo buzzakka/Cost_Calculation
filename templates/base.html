@@ -26,11 +26,11 @@
                 </ul>
                 <div class="login-block">
                     {% if user.is_authenticated %}
-                    <p><a href="{% url 'users:logout' %}" class="logout underline-link">Выйти</a></p>
+                    <p><a href="{% url 'users:logout' %}" class="logout simple-link">Выйти</a></p>
                     {% else %}
                         <p>
-                            <a href="{% url 'users:login' %}" class="login underline-link">Войти</a> |
-                            <a href="{% url 'users:register' %}" class="login underline-link">Регистрация</a>
+                            <a href="{% url 'users:login' %}" class="login simple-link">Войти</a> |
+                            <a href="{% url 'users:register' %}" class="login simple-link">Регистрация</a>
                         </p>
                     {% endif %}
                 </div>
