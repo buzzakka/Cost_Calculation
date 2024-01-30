@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load poll_extras %}
 
 
 {% block content %}
-    {% for cost in history_list %}
-        <p>{{ cost.date|date:"Y" }}</p>
+<!--    {{costs_history}}-->
+    {% for year, month in costs_history.items %}
+        <div class="history-year-block">
+            <h2>{{ year }}</h2>
+            {% for month_num, costs in month.items %}
+                <p>{{ month_num|ru_month }}</p>
+            {% endfor %}
+        </div>
     {% endfor %}
 {% endblock %}
