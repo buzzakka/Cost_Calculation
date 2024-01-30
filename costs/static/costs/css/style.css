@@ -1,3 +1,6 @@
+/*
+    Простое обнуление стилей
+*/
 * {
 	outline: 0;
 	padding: 0;
@@ -9,6 +12,9 @@
     box-sizing: border-box;
 }
 
+/*
+    Общие настройки
+*/
 html, body {
     height: 100%;
     background: #EDEEF0;
@@ -25,6 +31,39 @@ html, body {
     margin: 0 auto;
 }
 
+.underline-link {
+	color: #3399FF; /* Цвет обычной ссылки */
+    position: relative;
+    cursor: pointer;
+    text-decoration: none; /* Убираем подчеркивание */
+}
+.underline-link:after {
+	content: "";
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px; /* Высота линии */
+    background-color: #3399FF; /* Цвет подчеркивания при исчезании линии*/
+    transition: width 0.5s; /* Время эффекта */
+}
+
+.underline-link:hover:after {
+	content: "";
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 2px; /* Высота линии */
+    background-color: #3399FF; /* Цвет подчеркивания при появлении линии */
+    transition: width 0.5s;  /* Время эффекта */
+}
+
+/*
+    Header
+*/
 header {
     background-color: #fff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -45,11 +84,6 @@ header .container {
     align-items: center;
 }
 
-.main {
-    flex: 1 1 auto;
-    margin-top: 15px;
-}
-
 .menu-nav {
     display: flex;
     align-items: center;
@@ -59,10 +93,64 @@ header .container {
     margin-right: 25px;
 }
 
+
+/*
+    main
+*/
+.main {
+    flex: 1 1 auto;
+    margin-top: 15px;
+}
+
+.main .container {
+    display: flex;
+}
+
+.sidebar-nav {
+    margin-right: 30px;
+}
+
+.sidebar-nav__icon {
+    width: 25px;
+}
+
+.sidebar-nav li {
+    /*height: 25px;*/
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.sidebar-nav li:hover {
+    background-color: #e0e1e2;
+}
+
+.sidebar-nav span {
+    margin-left: 10px;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
 .content {
     flex: 1;
 }
 
+.month-statistics__top {
+    display: flex;
+    justify-content: space-between;
+}
+
+#pie-graph {
+    width: 450px;
+    min-height: 350px;
+}
+
+/*
+    Footer
+*/
 footer .container {
     display: flex;
     justify-content: center;

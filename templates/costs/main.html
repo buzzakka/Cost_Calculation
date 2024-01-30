@@ -3,17 +3,37 @@
 
 
 {% block content %}
-    <div class="graph-block">
-        <div id="graph" style="width: 500px">
+    <div class="month-statistics">
+        <div class="month-statistics__top">
+            <div class="month-total-costs">
+                <h1>Траты в этом месяце:</h1>
+                <ul>
+                    {% for cost in current_month_costs %}
+                        <li>
+                            <span class="month-categories__category-name">{{ cost.category__name }}</span>
+                            : {{ cost.value__sum }} руб.
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="pie-graph"></div>
         </div>
-        <script>
+    </div>
+{% endblock %}
+
+
+{% block meta %}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script>
             document.addEventListener('DOMContentLoaded', function () {
-                var myChart = Highcharts.chart('graph', {
+                var myChart = Highcharts.chart('pie-graph', {
                     chart: {
                         type: 'pie'
                     },
                     title: {
-                        text: 'Траты за месяц'
+                        text: 'Процент трат по категориям'
                     },
                     plotOptions: {
                         series: {
@@ -47,12 +67,4 @@
                 });
             });
         </script>
-    </div>
-{% endblock %}
-
-
-{% block meta %}
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 {% endblock %}

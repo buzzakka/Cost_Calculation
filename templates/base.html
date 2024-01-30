@@ -35,6 +35,36 @@
         </header>
         <main class="main">
             <div class="container">
+                {% if user.is_authenticated %}
+                <div class="sidebar-nav">
+                    <ul>
+                        <a href="{% url 'costs:main' %}">
+                            <li>
+                                <img src="{% static 'costs/img/icons/statistics.png' %}" alt="" class="sidebar-nav__icon">
+                                <span>Статистика за месяц</span>
+                            </li>
+                        </a>
+                        <a href="{% url 'costs:history' %}">
+                            <li>
+                                <img src="{% static 'costs/img/icons/history.png' %}" alt="" class="sidebar-nav__icon">
+                                <span>История трат</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li>
+                                <img src="{% static 'costs/img/icons/add_cost.png' %}" alt="" class="sidebar-nav__icon">
+                                <span>Добавить затрату</span>
+                            </li>
+                        </a>
+                        <a href="#">
+                            <li>
+                                <img src="{% static 'costs/img/icons/add_category.png' %}" alt="" class="sidebar-nav__icon">
+                                <span>Добавить категорию</span>
+                            </li>
+                        </a>
+                    </ul>
+                </div>
+                {% endif %}
                 <div class="content">
                     {% block content %}{% endblock %}
                 </div>

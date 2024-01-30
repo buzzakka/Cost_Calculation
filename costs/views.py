@@ -2,7 +2,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
-from django.shortcuts import render
 import datetime
 
 from .models import *
@@ -13,17 +12,28 @@ class MainView(LoginRequiredMixin, TemplateView):
     login_url = reverse_lazy('users:login')
 
     def get_pie_chart_data(self) -> list:
-        user = self.request.user
-        current_date = datetime.date.today()
-        graph_info = (Cost.objects.filter(user=user, date__month=current_date.month, date__year=current_date.year)
-                      .values('category__name').annotate(Sum('value')))
+        """
+        Возвращает информацию для построения круговой диаграммы
+        """
+        graph_info = self.get_current_month_costs()
         chart_data = [{'name': elem['category__name'], 'y': float(elem['value__sum'])} for elem in graph_info]
         return chart_data
 
+    def get_current_month_costs(self):
+        """
+        Возвращает список трат пользователя за текущий месяц, отсортированный по дате
+        """
+        user = self.request.user
+        current_date = datetime.date.today()
+        current_month_costs = (Cost.objects
+                               .filter(user=user, date__month=current_date.month, date__year=current_date.year)
+                               .values('category__name').annotate(Sum('value'))).order_by('date')
+        return current_month_costs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['current_month_costs'] = self.get_current_month_costs()
         context['pie_chart_data'] = self.get_pie_chart_data()
-        print(context)
         return context
 
 
@@ -36,6 +46,18 @@ class CostsHistory(LoginRequiredMixin, ListView):
         return Cost.objects.filter(user=self.request.user).order_by('date')
 
     def get_costs_history_data(self):
+        """
+        Вовращет словарь трат пользователя в формате
+        {
+            year1: {
+                month1: [{'value1': value1, 'category1': category1, 'description1': description1}, ...],
+                month2: ...,
+                ...
+            }
+            year2: ...,
+            ...
+        }
+        """
         queryset = self.get_queryset()
         year: int | None = None
         month: int | None = None
