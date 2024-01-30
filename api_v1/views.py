@@ -12,7 +12,7 @@ class StandartCategoriesAPIView(generics.ListAPIView):
     """
     queryset = CostCategory.objects.filter(is_custom=False)
     serializer_class = CategoriesSerializer
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
     filterset_fields = ('id', 'name')
 
 
@@ -22,6 +22,7 @@ class CustomCategoriesAPIViewSet(ModelViewSet):
     """
     queryset = CostCategory.objects.filter(is_custom=True)
     serializer_class = CategoriesSerializer
+    permission_classes = (IsAuthenticated,)
     filter_backends = (IsOwnerFilterBackend, DjangoFilterBackend)
     filterset_fields = ('id', 'name')
 
@@ -36,6 +37,7 @@ class CostsAPIViewSet(ModelViewSet):
     """
     queryset = Cost.objects.order_by('-date')
     serializer_class = CostsSerializer
+    permission_classes = (IsAuthenticated,)
     filter_backends = (IsOwnerFilterBackend, DjangoFilterBackend)
     filterset_fields = ('id', 'value', 'category__id', 'category__name', 'description')
 
