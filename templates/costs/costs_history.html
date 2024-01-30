@@ -4,12 +4,20 @@
 
 
 {% block content %}
-<!--    {{costs_history}}-->
     {% for year, month in costs_history.items %}
         <div class="history-year-block">
-            <h2>{{ year }}</h2>
+            <h2 class="year">{{ year }}</h2>
             {% for month_num, costs in month.items %}
-                <p>{{ month_num|ru_month }}</p>
+                <h3 class="month">{{ month_num|ru_month }}</h3>
+                {% for cost in costs %}
+                    <div class="cost">
+                        <p class="cost-value"> {{ cost.value }} руб. </p>
+                        <p class="cost-category"> {{ cost.category }} </p>
+                        {% if cost.description %}
+                            <p class="cost-description"> {{ cost.description }} </p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             {% endfor %}
         </div>
     {% endfor %}
