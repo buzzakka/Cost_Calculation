@@ -34,7 +34,7 @@ html, body {
     margin: 0 auto;
 }
 
-.underline-link, .simple-link {
+.simple-link {
 	color: #3399FF; /* Цвет обычной ссылки */
     position: relative;
     cursor: pointer;
