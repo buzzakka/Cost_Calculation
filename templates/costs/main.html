@@ -7,7 +7,7 @@
         <div class="block month-statistics__top">
             <div class="month-total-costs">
                 <h2>Траты в этом месяце:</h2>
-                {% if not current_month_costs.vars %}
+                {% if not current_month_costs %}
                 <p>Пока тут пусто, но вы всегда можете <a href="{% url 'costs:add_cost' %}" class="simple-link">добавить</a> новые затраты.</p>
                 {% else %}
                 <table>

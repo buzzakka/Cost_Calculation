@@ -161,12 +161,12 @@ header .container {
     margin-bottom: 10px;
 }
 
-.cost {
+.cost-block {
     margin-bottom: 15px;
     display: flex;
 }
 
-.cost__left {
+.cost-block__left {
     width: 280px;
     border-right: 2px solid #EDEEF0;
     margin-right: 20px;
@@ -174,6 +174,31 @@ header .container {
 
 .cost-title {
     font-weight: 600;
+}
+
+.action-buttons {
+    display: flex;
+}
+
+.action-buttons img {
+    width: 25px;
+    margin-right: 10px;
+
+}
+
+.cost-block__action-buttons img {
+    margin-top: 10px;
+}
+
+.cost-block__left p {
+    margin-bottom: 7px;
+}
+
+.category-object:not(:last-child) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 /*

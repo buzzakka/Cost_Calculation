@@ -4,8 +4,10 @@
 
 {% block content %}
     <h2>Изменить категорию</h2>
-    <form method="post">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Изменить">
-    </form>
+    <div class="block">
+        <form method="post">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Изменить">
+        </form>
+    </div>
 {% endblock %}

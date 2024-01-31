@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="add-category">
     <a href="{% url 'costs:add_category' %}" class="simple-link">Добавить катгеорию +</a>
 </div>
 {% for category in categories %}
-    <div class="category-object">
+    <div class="category-object block">
         <p class="category-object__name">{{category}}</p>
         {% if category.is_custom %}
-        <a href="{% url 'costs:update_category' category.id %}"
-           class="delete-object update-category simple-link">Редактировать категорию</a>
-        <a href="{% url 'costs:delete_category' category.id %}"
-           class="delete-object delete-category simple-link">Удалить категорию</a>
+            <div class="action-buttons">
+                <a href="{% url 'costs:update_category' category.id %}">
+                    <img src="{% static 'costs/img/icons/change.png' %}" alt="Изменить" title="Изменить" class="change-button">
+                </a>
+                <a href="{% url 'costs:delete_category' category.id %}">
+                    <img src="{% static 'costs/img/icons/delete.png' %}" alt="Удалить" title="Удалить" class="delete-button">
+                </a>
+            </div>
         {% else %}
             <p class="category-object__standart-category">Стандартная категория</p>
         {% endif %}
