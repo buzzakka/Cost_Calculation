@@ -7,8 +7,8 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 import datetime
 
 from .models import CostCategory, Cost
-from .forms import AddCostCategoryForm
-from .mixins import UserCategoryMixin
+from .forms import AddCostCategoryForm, AddCostForm
+from .mixins import UsersObjectMixin, AddUserToNewObjectMixin
 
 
 class MainView(LoginRequiredMixin, TemplateView):
@@ -84,6 +84,22 @@ class CostsHistory(LoginRequiredMixin, ListView):
         return context
 
 
+class AddCostView(AddUserToNewObjectMixin, CreateView):
+    model = Cost
+    form_class = AddCostForm
+    template_name = 'costs/add_cost.html'
+    success_url = reverse_lazy('costs:history')
+
+    # def get_form_kwargs(self):
+    #     kwargs = super(AddCostView, self).get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
+    #
+    # def form_valid(self, form):
+    #     form.instance.user = self.request.user
+    #     return super(AddCostView, self).form_valid(form)
+
+
 class CategoriesListView(LoginRequiredMixin, ListView):
     model = CostCategory
     template_name = 'costs/categories_list.html'
@@ -93,30 +109,30 @@ class CategoriesListView(LoginRequiredMixin, ListView):
         return CostCategory.objects.filter(Q(user=self.request.user) | Q(is_custom=False)).order_by('is_custom', 'name')
 
 
-class AddCategoryView(LoginRequiredMixin, CreateView):
+class AddCategoryView(AddUserToNewObjectMixin, CreateView):
     model = CostCategory
     form_class = AddCostCategoryForm
     template_name = 'costs/add_category.html'
     success_url = reverse_lazy('costs:categories_list')
 
-    def get_form_kwargs(self):
-        kwargs = super(AddCategoryView, self).get_form_kwargs()
-        kwargs['user'] = self.request.user
-        return kwargs
+    # def get_form_kwargs(self):
+    #     kwargs = super(AddCategoryView, self).get_form_kwargs()
+    #     kwargs['user'] = self.request.user
+    #     return kwargs
+    #
+    # def form_valid(self, form):
+    #     form.instance.user = self.request.user
+    #     return super(AddCategoryView, self).form_valid(form)
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(AddCategoryView, self).form_valid(form)
 
-
-class UpdateCategoryView(UserCategoryMixin, UpdateView):
+class UpdateCategoryView(UsersObjectMixin, UpdateView):
     model = CostCategory
     template_name = 'costs/update_category.html'
     success_url = reverse_lazy('costs:categories_list')
     fields = ['name']
 
 
-class DeleteCategoryView(UserCategoryMixin, DeleteView):
+class DeleteCategoryView(UsersObjectMixin, DeleteView):
     model = CostCategory
     template_name = 'costs/category_confirm_delete.html'
     success_url = reverse_lazy('costs:categories_list')
