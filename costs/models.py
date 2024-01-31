@@ -7,7 +7,7 @@ class CostCategory(models.Model):
     """
         Модель, описывающая стандартную категорию трат, общие для всех пользователей, создается админом
     """
-    name = models.CharField(max_length=100, unique=True, verbose_name='Название')
+    name = models.CharField(max_length=100, verbose_name='Название')
     is_custom = models.BooleanField(default=True, verbose_name='Добавлена пользователем')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True,
                              verbose_name='Пользователь')
@@ -26,7 +26,7 @@ class Cost(models.Model):
         Модель, описывающая конкретную трату пользоватлея
     """
     value = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Затраченная сумма')
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь', blank=True, null=True)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь')
     category = models.ForeignKey(CostCategory, on_delete=models.CASCADE, verbose_name='Категория траты')
     description = models.TextField(max_length=250, blank=True, null=True, verbose_name='Описание')
     date = models.DateField(default=timezone.now, verbose_name='Дата траты')

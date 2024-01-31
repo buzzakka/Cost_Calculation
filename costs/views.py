@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import CreateView
 import datetime
 
 from .models import *
@@ -78,3 +79,14 @@ class CostsHistory(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['costs_history'] = self.get_costs_history_data()
         return context
+
+
+class AddCategoryView(LoginRequiredMixin, CreateView):
+    model = CostCategory
+    fields = ('name', )
+    template_name = 'costs/add_category.html'
+    success_url = reverse_lazy('costs:add_category')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(AddCategoryView, self).form_valid(form)
