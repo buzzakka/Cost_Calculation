@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, Resolver404
 from django.views.generic import TemplateView, ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 import datetime
 
 from .models import *
@@ -92,3 +92,22 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
         kwargs = super(AddCategoryView, self).get_form_kwargs()
         kwargs['user'] = self.request.user
         return kwargs
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(AddCategoryView, self).form_valid(form)
+
+
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
+    model = CostCategory
+    template_name = 'costs/category_confirm_delete.html'
+    success_url = reverse_lazy('costs:main')
+
+    def is_users_category(self, request):
+        object = self.get_object()
+        return object.user == request.user
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.is_users_category(request):
+            raise Resolver404('Данная категория затрат не найдена')
+        return super(CategoryDeleteView, self).dispatch(request, *args, **kwargs)
