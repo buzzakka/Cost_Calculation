@@ -1,12 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Sum
-from django.urls import reverse_lazy, Resolver404
+from django.db.models import Sum, Q
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+
 import datetime
 
-from .models import *
-from .forms import *
+from .models import CostCategory, Cost
+from .forms import AddCostCategoryForm
+from .mixins import UserCategoryMixin
 
 
 class MainView(LoginRequiredMixin, TemplateView):
@@ -82,11 +84,20 @@ class CostsHistory(LoginRequiredMixin, ListView):
         return context
 
 
+class CategoriesListView(LoginRequiredMixin, ListView):
+    model = CostCategory
+    template_name = 'costs/categories_list.html'
+    context_object_name = 'categories'
+
+    def get_queryset(self):
+        return CostCategory.objects.filter(Q(user=self.request.user) | Q(is_custom=False)).order_by('is_custom', 'name')
+
+
 class AddCategoryView(LoginRequiredMixin, CreateView):
     model = CostCategory
     form_class = AddCostCategoryForm
     template_name = 'costs/add_category.html'
-    success_url = reverse_lazy('costs:add_category')
+    success_url = reverse_lazy('costs:categories_list')
 
     def get_form_kwargs(self):
         kwargs = super(AddCategoryView, self).get_form_kwargs()
@@ -98,16 +109,14 @@ class AddCategoryView(LoginRequiredMixin, CreateView):
         return super(AddCategoryView, self).form_valid(form)
 
 
-class CategoryDeleteView(LoginRequiredMixin, DeleteView):
+class UpdateCategoryView(UserCategoryMixin, UpdateView):
+    model = CostCategory
+    template_name = 'costs/update_category.html'
+    success_url = reverse_lazy('costs:categories_list')
+    fields = ['name']
+
+
+class DeleteCategoryView(UserCategoryMixin, DeleteView):
     model = CostCategory
     template_name = 'costs/category_confirm_delete.html'
-    success_url = reverse_lazy('costs:main')
-
-    def is_users_category(self, request):
-        object = self.get_object()
-        return object.user == request.user
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.is_users_category(request):
-            raise Resolver404('Данная категория затрат не найдена')
-        return super(CategoryDeleteView, self).dispatch(request, *args, **kwargs)
+    success_url = reverse_lazy('costs:categories_list')

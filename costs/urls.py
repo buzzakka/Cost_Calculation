@@ -5,8 +5,10 @@ from .views import *
 app_name = 'costs'
 
 categories_urls = [
+    path('', CategoriesListView.as_view(), name='categories_list'),
     path('add-category/', AddCategoryView.as_view(), name='add_category'),
-    path('delete-category/<int:pk>/', CategoryDeleteView.as_view(), name='delete_category'),
+    path('delete-category/<int:pk>/', DeleteCategoryView.as_view(), name='delete_category'),
+    path('update-category/<int:pk>/', UpdateCategoryView.as_view(), name='update_category'),
 ]
 
 urlpatterns = [
