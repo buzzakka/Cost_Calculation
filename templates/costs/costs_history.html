@@ -4,32 +4,39 @@
 
 
 {% block content %}
-    {% for year, month in costs_history.items %}
-        <div class="history-year-block">
-            <h2 class="year">{{ year }}</h2>
-            {% for month_num, costs in month.items %}
-                <h3 class="month">{{ month_num|ru_month }}</h3>
-                {% for cost in costs %}
-                    <div class="block cost">
-                        <div class="cost__left">
-                            <p class="cost-value"><span class="cost-title">Сумма:</span> {{ cost.value }} руб. </p>
-                            <p class="cost-category"><span class="cost-title">Категория:</span> {{ cost.category }} </p>
-                            <p class="cost-date"><span class="cost-title">Дата:</span> {{ cost.date }} </p>
-                        </div>
-                        <div class="cost__right">
-                            <p class="cost-description__text"><span class="cost-title">Описание:</span> {{ cost.description|default:'Описание отсутсвует' }} </p>
-                        </div>
-                        <div class="action-buttons">
-                            <a href="{% url 'costs:update_cost' cost.id %}">
-                                <img src="{% static 'costs/img/icons/change.png' %}" alt="Изменить" title="Изменить" class="change-button">
-                            </a>
-                            <a href="{% url 'costs:delete_cost' cost.id %}">
-                                <img src="{% static 'costs/img/icons/delete.png' %}" alt="Удалить" title="Удалить" class="delete-button">
-                            </a>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endfor %}
+    {% if not costs_history.vars %}
+        <div class="block empty-categories">
+            <h2>Пока тут пусто =(</h2>
+            <p>Но вы всегда можете <a href="{% url 'costs:add_cost' %}" class="simple-link">добавить</a> новые затраты.</p>
         </div>
-    {% endfor %}
+    {% else %}
+        {% for year, month in costs_history.items %}
+            <div class="history-year-block">
+                <h2 class="year">{{ year }}</h2>
+                {% for month_num, costs in month.items %}
+                    <h3 class="month">{{ month_num|ru_month }}</h3>
+                    {% for cost in costs %}
+                        <div class="block cost">
+                            <div class="cost__left">
+                                <p class="cost-value"><span class="cost-title">Сумма:</span> {{ cost.value }} руб. </p>
+                                <p class="cost-category"><span class="cost-title">Категория:</span> {{ cost.category }} </p>
+                                <p class="cost-date"><span class="cost-title">Дата:</span> {{ cost.date }} </p>
+                            </div>
+                            <div class="cost__right">
+                                <p class="cost-description__text"><span class="cost-title">Описание:</span> {{ cost.description|default:'Описание отсутсвует' }} </p>
+                            </div>
+                            <div class="action-buttons">
+                                <a href="{% url 'costs:update_cost' cost.id %}">
+                                    <img src="{% static 'costs/img/icons/change.png' %}" alt="Изменить" title="Изменить" class="change-button">
+                                </a>
+                                <a href="{% url 'costs:delete_cost' cost.id %}">
+                                    <img src="{% static 'costs/img/icons/delete.png' %}" alt="Удалить" title="Удалить" class="delete-button">
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

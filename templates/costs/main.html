@@ -7,6 +7,9 @@
         <div class="block month-statistics__top">
             <div class="month-total-costs">
                 <h2>Траты в этом месяце:</h2>
+                {% if not current_month_costs.vars %}
+                <p>Пока тут пусто, но вы всегда можете <a href="{% url 'costs:add_cost' %}" class="simple-link">добавить</a> новые затраты.</p>
+                {% else %}
                 <table>
                     {% for cost in current_month_costs %}
                     <tr>
@@ -16,6 +19,7 @@
                     {% endfor %}
                 </table>
                 <a href="{% url 'costs:history' %}" class="simple-link">Посмотреть историю</a>
+                {% endif %}
             </div>
             <div id="pie-graph"></div>
         </div>
