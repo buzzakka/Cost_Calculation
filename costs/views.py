@@ -90,14 +90,12 @@ class AddCostView(AddUserToNewObjectMixin, CreateView):
     template_name = 'costs/add_cost.html'
     success_url = reverse_lazy('costs:history')
 
-    # def get_form_kwargs(self):
-    #     kwargs = super(AddCostView, self).get_form_kwargs()
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
-    #
-    # def form_valid(self, form):
-    #     form.instance.user = self.request.user
-    #     return super(AddCostView, self).form_valid(form)
+
+class UpdateCostView(UsersObjectMixin, UpdateView):
+    model = Cost
+    template_name = 'costs/update_cost.html'
+    success_url = reverse_lazy('costs:history')
+    fields = ['value', 'category', 'description', 'date']
 
 
 class CategoriesListView(LoginRequiredMixin, ListView):
@@ -114,15 +112,6 @@ class AddCategoryView(AddUserToNewObjectMixin, CreateView):
     form_class = AddCostCategoryForm
     template_name = 'costs/add_category.html'
     success_url = reverse_lazy('costs:categories_list')
-
-    # def get_form_kwargs(self):
-    #     kwargs = super(AddCategoryView, self).get_form_kwargs()
-    #     kwargs['user'] = self.request.user
-    #     return kwargs
-    #
-    # def form_valid(self, form):
-    #     form.instance.user = self.request.user
-    #     return super(AddCategoryView, self).form_valid(form)
 
 
 class UpdateCategoryView(UsersObjectMixin, UpdateView):

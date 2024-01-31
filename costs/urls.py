@@ -15,5 +15,6 @@ urlpatterns = [
     path('main/', MainView.as_view(), name='main'),
     path('history/', CostsHistory.as_view(), name='history'),
     path('history/add-cost/', AddCostView.as_view(), name='add_cost'),
+    path('history/update-cost/<int:pk>', UpdateCostView.as_view(), name='update_cost'),
     path('categories/', include(categories_urls)),
 ]

@@ -12,7 +12,7 @@ class UsersObjectMixin(LoginRequiredMixin):
 
     def dispatch(self, request, *args, **kwargs):
         if not self.is_users_object(request):
-            raise Resolver404('Данная категория затрат не найдена')
+            raise Resolver404('Объект не найден')
         return super().dispatch(request, *args, **kwargs)
 
 
