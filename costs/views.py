@@ -98,6 +98,13 @@ class UpdateCostView(UsersObjectMixin, UpdateView):
     fields = ['value', 'category', 'description', 'date']
 
 
+class DeleteCostView(UsersObjectMixin, DeleteView):
+    model = Cost
+    template_name = 'costs/cost_confirm_delete.html'
+    success_url = reverse_lazy('costs:history')
+    context_object_name = 'cost'
+
+
 class CategoriesListView(LoginRequiredMixin, ListView):
     model = CostCategory
     template_name = 'costs/categories_list.html'

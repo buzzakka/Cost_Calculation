@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p>Уверены, что хотите удалить эту трату?</p>
+    <div class="block cost">
+        <div class="cost__left">
+            <p class="cost-value"><span class="cost-title">Сумма:</span> {{ cost.value }} руб. </p>
+            <p class="cost-category"><span class="cost-title">Категория:</span> {{ cost.category }} </p>
+            <p class="cost-date"><span class="cost-title">Дата:</span> {{ cost.date }} </p>
+        </div>
+        <div class="cost__right">
+            <p class="cost-description__text"><span class="cost-title">Описание:</span> {{ cost.description|default:'Описание отсутсвует' }} </p>
+        </div>
+    </div>
+    {{ form }}
+    <input type="submit" value="Удалить">
+</form>
+{% endblock %}
