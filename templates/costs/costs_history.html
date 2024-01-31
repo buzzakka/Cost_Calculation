@@ -19,6 +19,14 @@
                         <div class="cost__right">
                             <p class="cost-description__text"><span class="cost-title">Описание:</span> {{ cost.description|default:'Описание отсутсвует' }} </p>
                         </div>
+                        <div class="action-buttons">
+                            <a href="{% url 'costs:update_cost' cost.id %}">
+                                <img src="{% static 'costs/img/icons/change.png' %}" alt="Изменить" title="Изменить" class="change-button">
+                            </a>
+                            <a href="{% url 'costs:delete_cost' cost.id %}">
+                                <img src="{% static 'costs/img/icons/delete.png' %}" alt="Удалить" title="Удалить" class="delete-button">
+                            </a>
+                        </div>
                     </div>
                 {% endfor %}
             {% endfor %}

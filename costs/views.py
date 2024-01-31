@@ -73,9 +73,13 @@ class CostsHistory(LoginRequiredMixin, ListView):
             if cost.date.month != month:
                 month = cost.date.month
                 data[year][month] = []
-            data[year][month].append(
-                {'value': cost.value, 'category': cost.category, 'description': cost.description, 'date': cost.date}
-            )
+            data[year][month].append({
+                'id': cost.id,
+                'value': cost.value,
+                'category': cost.category,
+                'description': cost.description,
+                'date': cost.date
+            })
         return data
 
     def get_context_data(self, **kwargs):
