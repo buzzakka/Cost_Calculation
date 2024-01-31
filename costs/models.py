@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 class CostCategory(models.Model):

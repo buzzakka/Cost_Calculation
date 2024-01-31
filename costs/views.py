@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView
 import datetime
 
 from .models import *
+from .forms import *
 
 
 class MainView(LoginRequiredMixin, TemplateView):
@@ -83,10 +84,11 @@ class CostsHistory(LoginRequiredMixin, ListView):
 
 class AddCategoryView(LoginRequiredMixin, CreateView):
     model = CostCategory
-    fields = ('name', )
+    form_class = AddCostCategoryForm
     template_name = 'costs/add_category.html'
     success_url = reverse_lazy('costs:add_category')
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(AddCategoryView, self).form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super(AddCategoryView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
