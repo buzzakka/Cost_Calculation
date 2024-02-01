@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 
 class CostCategory(models.Model):
     """
-        Модель, описывающая стандартную категорию трат, общие для всех пользователей, создается админом
+    Модель, описывающая стандартную категорию трат, общие для всех пользователей, создается админом
     """
     name = models.CharField(max_length=100, verbose_name='Название')
     is_custom = models.BooleanField(default=True, verbose_name='Добавлена пользователем')
@@ -21,7 +21,6 @@ class CostCategory(models.Model):
 
         if (is_custom and users_query) or standart_query:
             raise ValidationError('Категория с таким названием уже существует')
-        return self.name
 
     def __str__(self):
         return self.name
@@ -34,7 +33,7 @@ class CostCategory(models.Model):
 
 class Cost(models.Model):
     """
-        Модель, описывающая конкретную трату пользоватлея
+    Модель, описывающая конкретную трату пользоватлея
     """
     value = models.DecimalField(max_digits=15, decimal_places=2, verbose_name='Затраченная сумма')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Пользователь')
@@ -42,8 +41,12 @@ class Cost(models.Model):
     description = models.TextField(max_length=250, blank=True, null=True, verbose_name='Описание')
     date = models.DateField(default=timezone.now, verbose_name='Дата траты')
 
+    def clean(self):
+        if self.category.user and (self.user != self.category.user):
+            raise ValidationError('Категория не найдена')
+
     def __str__(self):
-        return f'cost_id: {self.pk}, value: {self.value}'
+        return f'Пользователь: {self.user}, сумма: {self.value}, категория: {self.category}'
 
     class Meta:
         verbose_name = 'Трата'
