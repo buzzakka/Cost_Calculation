@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 
 class CostCategory(models.Model):
@@ -11,6 +13,15 @@ class CostCategory(models.Model):
     is_custom = models.BooleanField(default=True, verbose_name='Добавлена пользователем')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True,
                              verbose_name='Пользователь')
+
+    def clean(self):
+        is_custom = self.is_custom
+        standart_query = CostCategory.objects.filter(Q(name=self.name) & Q(is_custom=False)).exists()
+        users_query = CostCategory.objects.filter(Q(name=self.name) & Q(user=self.user)).exists()
+
+        if (is_custom and users_query) or standart_query:
+            raise ValidationError('Категория с таким названием уже существует')
+        return self.name
 
     def __str__(self):
         return self.name
