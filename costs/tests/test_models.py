@@ -16,17 +16,30 @@ class CostCategoryTestCase(TestCase):
         Создаётся 2 объекта категории: стандартный и пользовательский
         """
         cls.user = get_user_model().objects.create_user(username='user', email='user@mail.com', password='qpwoer!@#1')
-        CostCategory.objects.create(name='Standart Category', is_custom=False)
-        CostCategory.objects.create(name='user Category', is_custom=True, user=cls.user)
+        cls.standart_cost_category = CostCategory.objects.create(name='Standart Category', is_custom=False)
+        cls.custom_cost_category = CostCategory.objects.create(name='user Category', is_custom=True, user=cls.user)
+
+    def test_verbose_names(self):
+        field_verboses = {
+            'name': 'Название',
+            'is_custom': 'Добавлена пользователем',
+            'user': 'Пользователь'
+        }
+        for field, expected_value in field_verboses.items():
+            with self.subTest(field=field):
+                error_name = f'Поле {field} ожидало значение {expected_value}'
+                self.assertEqual(
+                    self.standart_cost_category._meta.get_field(field).verbose_name,
+                    expected_value, error_name
+                )
 
     def test_standart_category_1(self):
         """
         Параметры добавленной стандартной категории
         """
-        category = CostCategory.objects.get(name='Standart Category')
-        self.assertEquals(category.name, 'Standart Category')
-        self.assertEquals(category.is_custom, False)
-        self.assertIsNone(category.user)
+        self.assertEquals(self.standart_cost_category.name, 'Standart Category')
+        self.assertEquals(self.standart_cost_category.is_custom, False)
+        self.assertIsNone(self.standart_cost_category.user)
 
     def test_standart_category_2(self):
         """
@@ -50,10 +63,9 @@ class CostCategoryTestCase(TestCase):
         """
         Параметры добавленной пользовательской категории
         """
-        category = CostCategory.objects.get(name='user Category')
-        self.assertEquals(category.name, 'user Category')
-        self.assertEquals(category.is_custom, True)
-        self.assertEquals(category.user, self.user)
+        self.assertEquals(self.custom_cost_category.name, 'user Category')
+        self.assertEquals(self.custom_cost_category.is_custom, True)
+        self.assertEquals(self.custom_cost_category.user, self.user)
 
     def test_user_category_raise_error_1(self):
         """
