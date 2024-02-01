@@ -12,14 +12,6 @@ class AddCostCategoryForm(forms.ModelForm):
         self.user = kwargs.pop('user')
         super(AddCostCategoryForm, self).__init__(*args, **kwargs)
 
-    def clean_name(self):
-        name = self.cleaned_data['name']
-        if CostCategory.objects.filter(
-                (Q(user=self.user) & Q(name=name)) | (Q(is_custom=False) & Q(name=name))).exists():
-            raise forms.ValidationError("Такая категория уже существует")
-        else:
-            return name
-
 
 class AddCostForm(forms.ModelForm):
     class Meta:
@@ -32,4 +24,3 @@ class AddCostForm(forms.ModelForm):
         self.fields['category'].queryset = CostCategory.objects.filter(
             Q(user=self.user) | Q(is_custom=False)
         )
-

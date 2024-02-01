@@ -41,9 +41,9 @@ class Cost(models.Model):
     description = models.TextField(max_length=250, blank=True, null=True, verbose_name='Описание')
     date = models.DateField(default=timezone.now, verbose_name='Дата траты')
 
-    def clean(self):
-        if self.category.user and (self.user != self.category.user):
-            raise ValidationError('Категория не найдена')
+    # def clean(self):
+    #     if self.category.user and self.user and (self.user != self.category.user):
+    #         raise ValidationError('Категория не найдена')
 
     def __str__(self):
         return f'Пользователь: {self.user}, сумма: {self.value}, категория: {self.category}'

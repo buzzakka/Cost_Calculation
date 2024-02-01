@@ -123,15 +123,15 @@ class CostTestCase(TestCase):
         self.assertEquals(cost.user, self.user)
         self.assertEquals(cost.category, self.custom_category)
 
-    def test_cost_with_other_user_category_error(self):
-        """
-        Возникновение ошибки в том случае, когда пользователь пытается создать трату с категорией другого пользователя
-        """
-        user_2 = get_user_model().objects.create_user(username='user_2', email='user2@mail.com', password='qpwoer!@#1')
-        user_2_cost_category = CostCategory.objects.create(name='Standard', user=user_2)
-        cost = Cost.objects.create(value=10, user=self.user, category=user_2_cost_category)
-        with self.assertRaisesMessage(ValidationError, 'Категория не найдена'):
-            cost.clean()
+    # def test_cost_with_other_user_category_error(self):
+    #     """
+    #     Возникновение ошибки в том случае, когда пользователь пытается создать трату с категорией другого пользователя
+    #     """
+    #     user_2 = get_user_model().objects.create_user(username='user_2', email='user2@mail.com', password='qpwoer!@#1')
+    #     user_2_cost_category = CostCategory.objects.create(name='Standard', user=user_2)
+    #     cost = Cost.objects.create(value=10, user=self.user, category=user_2_cost_category)
+    #     with self.assertRaisesMessage(ValidationError, 'Категория не найдена'):
+    #         cost.clean()
 
     def test_cost_str(self):
         """

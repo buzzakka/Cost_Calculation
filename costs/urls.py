@@ -11,11 +11,15 @@ categories_urls = [
     path('update-category/<int:pk>/', UpdateCategoryView.as_view(), name='update_category'),
 ]
 
+cost_urls = [
+    path('history/', CostsHistory.as_view(), name='history'),
+    path('add-cost/', AddCostView.as_view(), name='add_cost'),
+    path('update-cost/<int:pk>/', UpdateCostView.as_view(), name='update_cost'),
+    path('delete-cost/<int:pk>/', DeleteCostView.as_view(), name='delete_cost'),
+]
+
 urlpatterns = [
     path('main/', MainView.as_view(), name='main'),
-    path('history/', CostsHistory.as_view(), name='history'),
-    path('history/add-cost/', AddCostView.as_view(), name='add_cost'),
-    path('history/update-cost/<int:pk>/', UpdateCostView.as_view(), name='update_cost'),
-    path('history/delete-cost/<int:pk>/', DeleteCostView.as_view(), name='delete_cost'),
+    path('costs/', include(cost_urls)),
     path('categories/', include(categories_urls)),
 ]
