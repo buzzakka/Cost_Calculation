@@ -1,14 +1,13 @@
 from http import HTTPStatus
-from django.test import Client, TestCase, RequestFactory
+from django.test import Client, TestCase
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AnonymousUser
 
 from costs.models import Cost, CostCategory
 
 User = get_user_model()
 
 
-class StaticURLTests(TestCase):
+class CostsURLTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = User.objects.create_user(username='auth')

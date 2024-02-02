@@ -13,7 +13,7 @@ from .forms import *
 class UnauthorizedOnlyMixin(View):
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse_lazy('users:index'))
+            return HttpResponseRedirect(reverse_lazy('costs:main'))
         return super().dispatch(request, *args, **kwargs)
 
 

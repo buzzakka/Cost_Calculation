@@ -115,6 +115,7 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 
 
 LOGIN_URL = reverse_lazy('users:login')
+LOGIN_REDIRECT_URL = reverse_lazy('costs:main')
 
 
 REST_FRAMEWORK = {
