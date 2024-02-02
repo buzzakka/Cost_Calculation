@@ -12,6 +12,7 @@ categories_urls = [
 ]
 
 cost_urls = [
+    path('', MainView.as_view(), name='main'),
     path('history/', CostsHistory.as_view(), name='history'),
     path('add-cost/', AddCostView.as_view(), name='add_cost'),
     path('update-cost/<int:pk>/', UpdateCostView.as_view(), name='update_cost'),
@@ -19,7 +20,6 @@ cost_urls = [
 ]
 
 urlpatterns = [
-    path('main/', MainView.as_view(), name='main'),
     path('costs/', include(cost_urls)),
     path('categories/', include(categories_urls)),
 ]

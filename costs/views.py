@@ -13,7 +13,6 @@ from .mixins import UsersObjectMixin, AddUserToNewObjectMixin
 
 class MainView(LoginRequiredMixin, TemplateView):
     template_name = 'costs/main.html'
-    login_url = reverse_lazy('users:login')
 
     def get_pie_chart_data(self) -> list:
         """

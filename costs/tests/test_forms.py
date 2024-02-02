@@ -89,4 +89,4 @@ class AddCostFormTest(TestCase):
         self.assertTrue(Cost.objects.filter(
             value=Decimal(100), category=self.custom_category, user=self.user).exists(), error_name_1)
         error_name_2 = 'Поcт не добавлен в базу данных'
-        self.assertEquals(Cost.self.objects.count(), costs_count + 1, error_name_2)
+        self.assertEquals(Cost.objects.count(), costs_count + 1, error_name_2)
