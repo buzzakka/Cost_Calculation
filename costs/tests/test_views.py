@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.test import Client, TestCase
+from django.test import Client, TestCase, RequestFactory
 from django.urls import reverse
 from datetime import date
 from django.conf import settings
@@ -36,6 +36,9 @@ class ViewsTest(TestCase):
         cls.authorized_client_2 = Client()
         cls.authorized_client_2.force_login(cls.user_2)
 
+    def setUp(self):
+        self.factory = RequestFactory()
+
     def test_views_correct_template(self):
         """ URL-адрес использует соответствующий шаблон """
         templates_url_names = {
@@ -56,7 +59,7 @@ class ViewsTest(TestCase):
                 error_name = f'Ошибка: {address} ожидал шаблон {template}'
                 self.assertTemplateUsed(response, template, error_name)
 
-    def test_costs_main_is_correct(self):
+    def test_costs_main_show_correct_context(self):
         """ Шаблон main сформирован с правильным контекстом """
         response = self.authorized_client_1.get(reverse('costs:main'))
         correct_context: dict = {
@@ -77,7 +80,7 @@ class ViewsTest(TestCase):
             else:
                 self.assertEquals(list(response.context[param]), value, error_name)
 
-    def test_cost_history_is_correct(self):
+    def test_cost_history_show_correct_context(self):
         """ Шаблон cost_history сформирован с правильным контекстом """
         response = self.authorized_client_1.get(reverse('costs:history'))
         correct_context: dict = {
@@ -101,3 +104,9 @@ class ViewsTest(TestCase):
         }
         for param, value in correct_context.items():
             self.assertEquals(response.context[param], value)
+
+    def test_categories_list_show_correct_context(self):
+        """ Шаблон categories_list сформирован с правильным контекстом """
+        response = self.authorized_client_1.get(reverse('costs:categories_list'))
+        categories = CostCategory.objects.all().exclude(user=self.user_2)
+        self.assertEquals(list(response.context['categories']), list(categories))
