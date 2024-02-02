@@ -15,17 +15,13 @@ class MainView(LoginRequiredMixin, TemplateView):
     template_name = 'costs/main.html'
 
     def get_pie_chart_data(self) -> list:
-        """
-        Возвращает информацию для построения круговой диаграммы
-        """
+        """ Возвращает информацию для построения круговой диаграммы """
         graph_info = self.get_current_month_costs()
         chart_data = [{'name': elem['category__name'], 'y': float(elem['value__sum'])} for elem in graph_info]
         return chart_data
 
     def get_current_month_costs(self):
-        """
-        Возвращает список трат пользователя за текущий месяц, отсортированный по дате
-        """
+        """ Возвращает список трат пользователя за текущий месяц, отсортированный по дате """
         user = self.request.user
         current_date = datetime.date.today()
         current_month_costs = (Cost.objects
@@ -35,6 +31,7 @@ class MainView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = 'Статистика'
         context['current_month_costs'] = self.get_current_month_costs()
         context['pie_chart_data'] = self.get_pie_chart_data()
         return context
@@ -84,6 +81,7 @@ class CostsHistory(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['costs_history'] = self.get_costs_history_data()
+        context['title'] = 'История затрат'
         return context
 
 
@@ -92,6 +90,7 @@ class AddCostView(AddUserToNewObjectMixin, CreateView):
     form_class = AddCostForm
     template_name = 'costs/add_cost.html'
     success_url = reverse_lazy('costs:history')
+    extra_context = {'title': 'Добавить трату'}
 
 
 class UpdateCostView(UsersObjectMixin, UpdateView):
@@ -99,6 +98,7 @@ class UpdateCostView(UsersObjectMixin, UpdateView):
     template_name = 'costs/update_cost.html'
     success_url = reverse_lazy('costs:history')
     fields = ['value', 'category', 'description', 'date']
+    extra_context = {'title': 'Изменить трату'}
 
 
 class DeleteCostView(UsersObjectMixin, DeleteView):
@@ -106,12 +106,14 @@ class DeleteCostView(UsersObjectMixin, DeleteView):
     template_name = 'costs/cost_confirm_delete.html'
     success_url = reverse_lazy('costs:history')
     context_object_name = 'cost'
+    extra_context = {'title': 'Удалить трату'}
 
 
 class CategoriesListView(LoginRequiredMixin, ListView):
     model = CostCategory
     template_name = 'costs/categories_list.html'
     context_object_name = 'categories'
+    extra_context = {'title': 'Список категорий'}
 
     def get_queryset(self):
         return CostCategory.objects.filter(Q(user=self.request.user) | Q(is_custom=False)).order_by('is_custom', 'name')
@@ -122,6 +124,7 @@ class AddCategoryView(AddUserToNewObjectMixin, CreateView):
     form_class = AddCostCategoryForm
     template_name = 'costs/add_category.html'
     success_url = reverse_lazy('costs:categories_list')
+    extra_context = {'title': 'Добавить категорию'}
 
 
 class UpdateCategoryView(UsersObjectMixin, UpdateView):
@@ -129,9 +132,11 @@ class UpdateCategoryView(UsersObjectMixin, UpdateView):
     template_name = 'costs/update_category.html'
     success_url = reverse_lazy('costs:categories_list')
     fields = ['name']
+    extra_context = {'title': 'Изменить категорию'}
 
 
 class DeleteCategoryView(UsersObjectMixin, DeleteView):
     model = CostCategory
     template_name = 'costs/category_confirm_delete.html'
     success_url = reverse_lazy('costs:categories_list')
+    extra_context = {'title': 'Удалить категорию'}

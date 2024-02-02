@@ -18,9 +18,7 @@ class AddCostCategoryFormTest(TestCase):
         cls.authorized_client.force_login(cls.user)
 
     def test_add_cost_category(self):
-        """
-        Создание новой категории затрат
-        """
+        """ Создание новой категории затрат """
         categories_count = CostCategory.objects.count()
         form_data = {'name': 'Test Category'}
         response = self.authorized_client.post(reverse('costs:add_category'), form_data, follow=True)
@@ -31,9 +29,7 @@ class AddCostCategoryFormTest(TestCase):
         self.assertEquals(CostCategory.objects.count(), categories_count + 1, error_name_2)
 
     def test_add_existing_cost_category(self):
-        """
-        Добавление уже существующей категории затрат
-        """
+        """ Добавление уже существующей категории затрат """
         CostCategory.objects.create(name='Test', is_custom=False)
         categories_count = CostCategory.objects.count()
         form_data = {'name': 'Test'}
@@ -54,9 +50,7 @@ class AddCostFormTest(TestCase):
         cls.authorized_client.force_login(cls.user)
 
     def test_add_cost_with_standart_category(self):
-        """
-        Создание новой затраты
-        """
+        """ Создание новой затраты со стандартной категорией """
         costs_count = Cost.objects.count()
         form_data = {
             'value': 100,
@@ -73,9 +67,7 @@ class AddCostFormTest(TestCase):
         self.assertEquals(Cost.objects.count(), costs_count + 1, error_name_2)
 
     def test_add_cost_with_custom_category(self):
-        """
-        Создание новой затраты
-        """
+        """ Создание новой затраты с кастомной категорией """
         costs_count = Cost.objects.count()
         form_data = {
             'value': 100,
