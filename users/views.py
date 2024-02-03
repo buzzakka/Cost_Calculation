@@ -11,6 +11,7 @@ from .forms import *
 
 
 class UnauthorizedOnlyMixin(View):
+    """ Миксин для доступа к странице только неавторизованных пользователей """
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse_lazy('costs:main'))
@@ -32,6 +33,7 @@ class UserRegisterView(UnauthorizedOnlyMixin, CreateView):
     template_name = 'users/register.html'
     form_class = UserRegisterForm
     extra_context = {'title': 'Регистрация'}
+    success_url = reverse_lazy('users:login')
 
 
 class UserChangePasswordView(LoginRequiredMixin, PasswordChangeView):

@@ -1,9 +1,6 @@
 from http import HTTPStatus
 from django.test import Client, TestCase
 from django.contrib.auth import get_user_model
-from django.urls import reverse_lazy
-
-from costs.models import Cost, CostCategory
 
 User = get_user_model()
 
