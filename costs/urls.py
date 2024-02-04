@@ -1,6 +1,7 @@
 from django.urls import path, include
 
-from .views import *
+from .views import (CategoriesListView, AddCategoryView, DeleteCategoryView, UpdateCategoryView, MainView, CostsHistory,
+                    AddCostView, UpdateCostView, DeleteCostView)
 
 app_name = 'costs'
 

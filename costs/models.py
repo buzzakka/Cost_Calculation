@@ -6,9 +6,7 @@ from django.core.exceptions import ValidationError
 
 
 class CostCategory(models.Model):
-    """
-    Модель, описывающая стандартную категорию трат, общие для всех пользователей, создается админом
-    """
+    """ Модель, описывающая стандартную категорию трат, общие для всех пользователей, создается админом """
     name = models.CharField(max_length=100, verbose_name='Название')
     is_custom = models.BooleanField(default=True, verbose_name='Добавлена пользователем')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True,

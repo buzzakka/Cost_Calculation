@@ -3,10 +3,7 @@ from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import Q
 
 class CustomUserBackend(ModelBackend):
-    """
-    Бэкенд для авторизации пользователей через username и email
-    """
-
+    """ Бэкенд для авторизации пользователей через username и email """
     def authenticate(self, request, username=None, password=None, **kwargs):
         user_model = get_user_model()
         try:

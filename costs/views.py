@@ -12,6 +12,7 @@ from .mixins import UsersObjectMixin, AddUserToNewObjectMixin
 
 
 class MainView(LoginRequiredMixin, TemplateView):
+    """ Главная страниа """
     template_name = 'costs/main.html'
 
     def get_pie_chart_data(self) -> list:
@@ -38,6 +39,7 @@ class MainView(LoginRequiredMixin, TemplateView):
 
 
 class CostsHistory(LoginRequiredMixin, ListView):
+    """ История трат """
     model = Cost
     template_name = 'costs/costs_history.html'
     context_object_name = 'history_list'
@@ -86,6 +88,7 @@ class CostsHistory(LoginRequiredMixin, ListView):
 
 
 class AddCostView(AddUserToNewObjectMixin, CreateView):
+    """ Добавление трат """
     model = Cost
     form_class = AddCostForm
     template_name = 'costs/add_cost.html'
@@ -94,6 +97,7 @@ class AddCostView(AddUserToNewObjectMixin, CreateView):
 
 
 class UpdateCostView(UsersObjectMixin, UpdateView):
+    """ Обновление трат """
     model = Cost
     template_name = 'costs/update_cost.html'
     success_url = reverse_lazy('costs:history')
@@ -102,6 +106,7 @@ class UpdateCostView(UsersObjectMixin, UpdateView):
 
 
 class DeleteCostView(UsersObjectMixin, DeleteView):
+    """ Удаление трат """
     model = Cost
     template_name = 'costs/cost_confirm_delete.html'
     success_url = reverse_lazy('costs:history')
@@ -110,16 +115,19 @@ class DeleteCostView(UsersObjectMixin, DeleteView):
 
 
 class CategoriesListView(LoginRequiredMixin, ListView):
+    """ Список категорий """
     model = CostCategory
     template_name = 'costs/categories_list.html'
     context_object_name = 'categories'
     extra_context = {'title': 'Список категорий'}
 
     def get_queryset(self):
+        """ Возвращает только список стандартных категорий и категорий, созданных этим пользователем """
         return CostCategory.objects.filter(Q(user=self.request.user) | Q(is_custom=False)).order_by('is_custom', 'name')
 
 
 class AddCategoryView(AddUserToNewObjectMixin, CreateView):
+    """ Добавить категорию """
     model = CostCategory
     form_class = AddCostCategoryForm
     template_name = 'costs/add_category.html'
@@ -128,6 +136,7 @@ class AddCategoryView(AddUserToNewObjectMixin, CreateView):
 
 
 class UpdateCategoryView(UsersObjectMixin, UpdateView):
+    """ Обновить категорию """
     model = CostCategory
     template_name = 'costs/update_category.html'
     success_url = reverse_lazy('costs:categories_list')
@@ -136,6 +145,7 @@ class UpdateCategoryView(UsersObjectMixin, UpdateView):
 
 
 class DeleteCategoryView(UsersObjectMixin, DeleteView):
+    """ Удалить категорию """
     model = CostCategory
     template_name = 'costs/category_confirm_delete.html'
     success_url = reverse_lazy('costs:categories_list')

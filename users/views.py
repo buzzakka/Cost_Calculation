@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
 
-from .forms import *
+from .forms import UserRegisterForm
 
 
 class UnauthorizedOnlyMixin(View):
@@ -19,17 +19,20 @@ class UnauthorizedOnlyMixin(View):
 
 
 class UserLoginView(LoginView):
+    """ Аутентификация пользователя """
     template_name = 'users/login.html'
     extra_context = {'title': 'Авторизация'}
     redirect_authenticated_user = True
 
 
 def logout_user(request):
+    """ Логаут пользователя """
     logout(request)
     return HttpResponseRedirect(reverse_lazy('users:login'))
 
 
 class UserRegisterView(UnauthorizedOnlyMixin, CreateView):
+    """ Регистрация пользователя """
     template_name = 'users/register.html'
     form_class = UserRegisterForm
     extra_context = {'title': 'Регистрация'}
@@ -37,12 +40,14 @@ class UserRegisterView(UnauthorizedOnlyMixin, CreateView):
 
 
 class UserChangePasswordView(LoginRequiredMixin, PasswordChangeView):
+    """ Смена пароля """
     template_name = 'users/change_password.html'
     extra_context = {'title': 'Изменить пароль'}
     success_url = reverse_lazy('users:index')
 
 
 class UserPasswordResetView(UnauthorizedOnlyMixin, PasswordResetView):
+    """ Сброс пароля """
     template_name = 'users/password_reset_form.html'
     extra_context = {'title': 'Сброс пароля'}
     email_template_name = 'users/password_reset_email.html'
@@ -50,10 +55,12 @@ class UserPasswordResetView(UnauthorizedOnlyMixin, PasswordResetView):
 
 
 class UserPasswordResetCompleteView(UnauthorizedOnlyMixin, PasswordResetCompleteView):
+    """ Сброс пароля успешен """
     template_name = 'users/password_reset_complete.html'
     extra_context = {'title': 'Сброс пароля'}
 
 
 class UserPasswordResetDoneView(UnauthorizedOnlyMixin, PasswordResetDoneView):
+    """ Сброс пароля подтвержден """
     template_name = 'users/password_reset_done.html'
     extra_context = {'title': 'Сброс пароля'}

@@ -1,8 +1,8 @@
 from django.contrib.auth.views import PasswordResetConfirmView
-from django.urls import path
-from django.views.generic import TemplateView
+from django.urls import path, reverse_lazy
 
-from .views import *
+from .views import (UserLoginView, logout_user, UserRegisterView, UserChangePasswordView, UserPasswordResetView,
+                    UserPasswordResetDoneView, UserPasswordResetCompleteView)
 
 app_name = 'users'
 
