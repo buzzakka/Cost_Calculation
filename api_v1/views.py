@@ -7,9 +7,7 @@ from .filters import *
 
 
 class StandartCategoriesAPIView(generics.ListAPIView):
-    """
-        Предоставляет список стандартных (общих) категорий
-    """
+    """ Предоставляет список стандартных (общих) категорий  """
     queryset = CostCategory.objects.filter(is_custom=False)
     serializer_class = CategoriesSerializer
     permission_classes = (IsAuthenticated,)
@@ -17,9 +15,7 @@ class StandartCategoriesAPIView(generics.ListAPIView):
 
 
 class CustomCategoriesAPIViewSet(ModelViewSet):
-    """
-        Предоставляет список категорий пользователя
-    """
+    """ Предоставляет список категорий пользователя """
     queryset = CostCategory.objects.filter(is_custom=True)
     serializer_class = CategoriesSerializer
     permission_classes = (IsAuthenticated,)
@@ -32,9 +28,7 @@ class CustomCategoriesAPIViewSet(ModelViewSet):
 
 
 class CostsAPIViewSet(ModelViewSet):
-    """
-        Предоставляет список затра пользователя с подробной информацией
-    """
+    """ Предоставляет список затра пользователя с подробной информацией """
     queryset = Cost.objects.order_by('-date')
     serializer_class = CostsSerializer
     permission_classes = (IsAuthenticated,)
