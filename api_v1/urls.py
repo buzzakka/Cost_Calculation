@@ -6,12 +6,13 @@ app_name = 'api_v1'
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
-    path('common-categories/', StandartCategoriesAPIView.as_view(), name='common_categories'),
+    # path('common-categories/', StandartCategoriesAPIView.as_view(), name='common_categories'),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]
 
 router = SimpleRouter()
-router.register(r'custom-categories', CustomCategoriesAPIViewSet)
-router.register(r'costs', CostsAPIViewSet)
+router.register(r'common_categories', StandartCategoriesAPIView, basename='common_categories')
+router.register(r'custom-categories', CustomCategoriesAPIViewSet, basename='custom_categories')
+router.register(r'costs', CostsAPIViewSet, basename='costs')
 urlpatterns += router.urls

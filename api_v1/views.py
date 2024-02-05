@@ -1,12 +1,14 @@
-from rest_framework import generics
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
-from .serializer import *
-from .filters import *
+
+from .serializer import CategoriesSerializer, CostsSerializer
+from .filters import IsOwnerFilterBackend
+from costs.models import Cost, CostCategory
 
 
-class StandartCategoriesAPIView(generics.ListAPIView):
+class StandartCategoriesAPIView(ReadOnlyModelViewSet):
     """ Предоставляет список стандартных (общих) категорий  """
     queryset = CostCategory.objects.filter(is_custom=False)
     serializer_class = CategoriesSerializer
