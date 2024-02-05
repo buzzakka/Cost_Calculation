@@ -14,7 +14,6 @@ class CostsURLTests(TestCase):
         cls.category = CostCategory.objects.create(name="Test", user=cls.user)
         cls.cost = Cost.objects.create(value=10, category=cls.category, user=cls.user)
 
-
     def setUp(self):
         self.guest_client = Client()
         self.authorized_client = Client()
