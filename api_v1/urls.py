@@ -6,7 +6,6 @@ app_name = 'api_v1'
 
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
-    # path('common-categories/', StandartCategoriesAPIView.as_view(), name='common_categories'),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]
