@@ -194,11 +194,16 @@ header .container {
     margin-bottom: 7px;
 }
 
-.category-object:not(:last-child) {
+.category-object {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+}
+
+.category-object__standart-category {
+    font-size: 14px;
+    color: gray;
 }
 
 /*
@@ -219,3 +224,11 @@ footer .container {
 .social-medias a:not(:last-child) {
     margin-right: 20px;
 }
+
+form label {
+    display: inline-block;
+    width: 170px;
+    margin-bottom: 10px;
+    vertical-align: top;
+}
+

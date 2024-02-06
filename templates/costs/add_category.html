@@ -3,11 +3,11 @@
 
 
 {% block content %}
-    <h2>Добавить категорию</h2>
-    <div class="block">
-        <form method="post">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Добавить">
-        </form>
-    </div>
+<h2>Добавить категорию</h2>
+<div class="block">
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Добавить</button>
+    </form>
+</div>
 {% endblock %}

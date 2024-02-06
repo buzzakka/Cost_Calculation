@@ -6,7 +6,7 @@
         {% csrf_token %}
         <p>Уверены, что хотите удалить категорию "{{ object }}"? Вместе с ней удалятся все затраты с этой категорией.</p>
         {{ form }}
-        <input type="submit" value="Удалить">
+        <button type="submit" class="button">Удалить</button>
     </form>
 </div>
 {% endblock %}
