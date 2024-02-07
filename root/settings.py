@@ -22,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
-    'users.apps.UsersConfig',
+    'apps.users.apps.UsersConfig',
     'apps.costs.apps.CostsConfig',
     'api_v1.apps.ApiV1Config',
     'rest_framework',
@@ -100,7 +100,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
-    'users.backends.CustomUserBackend'
+    'apps.users.backends.CustomUserBackend'
 ]
 
 

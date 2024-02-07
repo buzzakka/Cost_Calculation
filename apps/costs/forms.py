@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import Q
 from .models import Cost, CostCategory
-from users.forms import AddPlaceholderFormMixin
+from apps.users.forms import AddPlaceholderFormMixin
 
 
 class AddCostCategoryForm(forms.ModelForm, AddPlaceholderFormMixin):
