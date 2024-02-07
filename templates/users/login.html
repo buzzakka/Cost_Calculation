@@ -1,12 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="form-block login-form-block block">
+<div class="form-block user-form-block login-form-block block">
     <h1>Авторизация</h1>
     <form method="post">{% csrf_token %}
-        <table>
-        {{ form.as_table }}
-        </table>
+        {% for f in form %}
+            {{ f }}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        {% if form.non_field_errors %}
+          <div class="error-message">
+            {% for error in form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
         <button type="submit" class="button">Войти</button>
     </form>
     <a href="{% url 'users:password_reset' %}" class="simple-link">Забыли пароль?</a>

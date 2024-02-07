@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
     'users.apps.UsersConfig',
     'costs.apps.CostsConfig',
     'api_v1.apps.ApiV1Config',

@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView
 
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, CustomAuthenticationForm, CustomPasswordResetForm
 
 
 class UnauthorizedOnlyMixin(View):
@@ -21,6 +21,7 @@ class UnauthorizedOnlyMixin(View):
 class UserLoginView(LoginView):
     """ Аутентификация пользователя """
     template_name = 'users/login.html'
+    form_class = CustomAuthenticationForm
     extra_context = {'title': 'Авторизация'}
     redirect_authenticated_user = True
 
@@ -49,6 +50,7 @@ class UserChangePasswordView(LoginRequiredMixin, PasswordChangeView):
 class UserPasswordResetView(UnauthorizedOnlyMixin, PasswordResetView):
     """ Сброс пароля """
     template_name = 'users/password_reset_form.html'
+    form_class = CustomPasswordResetForm
     extra_context = {'title': 'Сброс пароля'}
     email_template_name = 'users/password_reset_email.html'
     success_url = reverse_lazy('users:password_reset_done')

@@ -242,38 +242,41 @@ button:hover {
 
 
 /* FORMS */
-.login-form-block {
+.user-form-block {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 450px;
     margin: 40px auto;
     padding: 20px;
 }
 
-.login-form-block h1 {
+.user-form-block h1 {
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.login-form-block form {
-    display: flex;flex-direction: column;
+.user-form-block form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
-.login-form-block table {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.login-form-block input, .login-form-block button {
+.user-form-block input, .user-form-block button {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box;
+}
+
+.user-form-block button {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 15px;
+    padding: 10px 20px;
 }
 
 .login-form-block .simple-link {
@@ -287,4 +290,10 @@ button:hover {
 
 .login-form-block .simple-link:hover {
     color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    font-weight: lighter;
+    margin-bottom: 10px;
 }
