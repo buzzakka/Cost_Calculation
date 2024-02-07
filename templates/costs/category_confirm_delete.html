@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="block">
+<div class="block form-block confirm-delete-form">
     <form method="post">
         {% csrf_token %}
-        <p>Уверены, что хотите удалить категорию "{{ object }}"? Вместе с ней удалятся все затраты с этой категорией.</p>
+        <p>Уверены, что хотите удалить категорию <strong>"{{ object }}"</strong>? Вместе с ней удалятся все затраты с этой категорией.</p>
         {{ form }}
-        <button type="submit" class="button">Удалить</button>
+        <button type="submit" class="button delete-button">Удалить</button>
     </form>
 </div>
 {% endblock %}

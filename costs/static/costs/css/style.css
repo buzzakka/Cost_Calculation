@@ -163,6 +163,16 @@ header .container {
     margin-bottom: 10px;
 }
 
+.cost {
+    display: flex;
+}
+
+.cost__left {
+    width: 300px;
+    border-right: 2px solid #EDEEF0;
+    margin-right: 20px;
+}
+
 .cost-block {
     margin-bottom: 15px;
     display: flex;
@@ -307,4 +317,20 @@ button:hover {
     color: red;
     font-weight: lighter;
     margin-bottom: 10px;
+}
+
+.confirm-delete-form {
+    min-width: 800px;
+}
+
+.confirm-delete-form .button {
+    margin-top: 15px;
+}
+
+.delete-button {
+    background-color: #D53032;
+}
+
+.delete-button:hover {
+    background-color: #B32821;
 }
