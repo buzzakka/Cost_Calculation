@@ -2,7 +2,7 @@ from http import HTTPStatus
 from django.test import Client, TestCase
 from django.contrib.auth import get_user_model
 
-from costs.models import Cost, CostCategory
+from apps.costs.models import Cost, CostCategory
 
 User = get_user_model()
 

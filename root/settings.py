@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.forms',
     'users.apps.UsersConfig',
-    'costs.apps.CostsConfig',
+    'apps.costs.apps.CostsConfig',
     'api_v1.apps.ApiV1Config',
     'rest_framework',
     'rest_framework.authtoken',

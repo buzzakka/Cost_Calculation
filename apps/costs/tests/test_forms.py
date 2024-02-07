@@ -4,7 +4,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
-from costs.models import CostCategory, Cost
+from apps.costs.models import CostCategory, Cost
 
 User = get_user_model()
 

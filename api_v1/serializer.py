@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from costs.models import *
-
+from apps.costs.models import Cost, CostCategory
 
 class CategoriesSerializer(serializers.ModelSerializer):
     """ Сериализатор для категорий трат """

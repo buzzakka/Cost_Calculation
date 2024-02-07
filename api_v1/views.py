@@ -5,7 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .serializer import CategoriesSerializer, CostsSerializer
 from .filters import IsOwnerFilterBackend
-from costs.models import Cost, CostCategory
+from apps.costs.models import Cost, CostCategory
 
 
 class StandartCategoriesAPIView(ReadOnlyModelViewSet):

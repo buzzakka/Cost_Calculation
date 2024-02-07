@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 
 from decimal import Decimal
 
-from costs.models import CostCategory, Cost
+from apps.costs.models import CostCategory, Cost
 
 
 class CostCategoryTestCase(TestCase):

@@ -1,7 +1,7 @@
 from rest_framework.test import APIClient, APITestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from costs.models import Cost, CostCategory
+from apps.costs.models import Cost, CostCategory
 from http import HTTPStatus as status
 from datetime import date
 

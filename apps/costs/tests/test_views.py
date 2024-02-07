@@ -3,9 +3,10 @@ from django.test import Client, TestCase, RequestFactory
 from django.urls import reverse
 from datetime import date
 
-from costs.models import CostCategory, Cost
+from apps.costs.models import CostCategory, Cost
 
 User = get_user_model()
+
 
 class ViewsTest(TestCase):
     maxDiff = None
