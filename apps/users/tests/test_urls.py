@@ -60,7 +60,7 @@ class UsersURLTest(TestCase):
             '/users/password-reset/done/',
         )
         for url in pages:
-            target_page = '/costs/'
+            target_page = '/'
             response = self.authorized_client.get(url)
             self.assertRedirects(response, target_page)
 

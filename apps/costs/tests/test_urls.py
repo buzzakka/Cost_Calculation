@@ -22,7 +22,7 @@ class CostsURLTests(TestCase):
     def test_urls_guest_client_with_redirect(self):
         """Доступ неавторизованного пользователя с редиректом на LOGIN_URL"""
         pages: tuple = (
-            '/costs/',
+            '/',
             '/costs/history/',
             '/costs/add-cost/',
             '/categories/',
@@ -52,7 +52,7 @@ class CostsURLTests(TestCase):
         Доступ авторизованного пользователя к старницам, к которым у него есть доступ, статус кода должен быть 200
         """
         pages: tuple = (
-            '/costs/',
+            '/',
             '/costs/history/',
             '/costs/add-cost/',
             f'/costs/update-cost/{self.cost.id}/',
@@ -96,7 +96,7 @@ class CostsURLTests(TestCase):
     def test_urls_uses_correct_template(self):
         """URL-адрес использует соответствующий шаблон"""
         templates_url_names: dict = {
-            '/costs/': 'costs/main.html',
+            '/': 'costs/main.html',
             '/costs/history/': 'costs/costs_history.html',
             '/costs/add-cost/': 'costs/add_cost.html',
             f'/costs/update-cost/{self.cost.id}/': 'costs/update_cost.html',
