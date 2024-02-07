@@ -3,8 +3,8 @@
 
 
 {% block content %}
-<h2>Добавить категорию</h2>
-<div class="block">
+<div class="block add-category-block">
+    <h2>Добавить категорию</h2>
     <form method="post">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="button">Добавить</button>

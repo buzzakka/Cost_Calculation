@@ -27,7 +27,7 @@ class MainView(LoginRequiredMixin, TemplateView):
         current_date = datetime.date.today()
         current_month_costs = (Cost.objects
                                .filter(user=user, date__month=current_date.month, date__year=current_date.year)
-                               .values('category__name').annotate(Sum('value'))).order_by('date')
+                               .values('category__name').annotate(Sum('value')).order_by('-value__sum', 'date__month'))
         return current_month_costs
 
     def get_context_data(self, **kwargs):

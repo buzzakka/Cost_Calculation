@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="form-block register-form-block">
+<div class="form-block register-form-block block">
     <h1>Регистрация</h1>
     <form method="post" class="register-form">
         {% csrf_token %}
@@ -14,7 +14,7 @@
         </div>
         {% endfor %}
         <div class="form-error">{{ form.non_field_errors }}</div>
-        <button type="submit" class="button">Зарегистрироваться</button>
+        <button type="submit" class="button">Регистрация</button>
     </form>
 </div>
 {% endblock %}
