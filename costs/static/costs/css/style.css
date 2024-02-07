@@ -225,29 +225,66 @@ footer .container {
     margin-right: 20px;
 }
 
-form label {
-    display: inline-block;
-    margin-bottom: 7px;
-    vertical-align: top;
-}
-
-.button {
-    text-align: center;
-    font-size: 17px;
-    font-weight: bold;
-    background-size: 200% auto;
+button {
+    background-color: #007bff;
     color: white;
-    border: 0;
-    box-shadow: 0 0 20px #eee;
-    border-radius: 10px;
-    background-image: linear-gradient(to right, #3399FF 0%, #0B63F6 51%, #3399FF 100%);
-    padding: 7px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.button:hover {
-     background-position: right center;
+button:hover {
+    background-color: #0056b3;
 }
 
 .add-category {
     margin-bottom: 10px;
+}
+
+
+/* FORMS */
+.login-form-block {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.login-form-block h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-form-block form {
+    display: flex;flex-direction: column;
+}
+
+.login-form-block table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.login-form-block input, .login-form-block button {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.login-form-block .simple-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-form-block .simple-link:hover {
+    color: #0056b3;
 }
