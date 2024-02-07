@@ -22,13 +22,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
-    'apps.users.apps.UsersConfig',
-    'apps.costs.apps.CostsConfig',
-    'api_v1.apps.ApiV1Config',
+    'django_filters',
+
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
-    'django_filters',
+
+    'apps.users.apps.UsersConfig',
+    'apps.costs.apps.CostsConfig',
+    'apps.api_v1.apps.ApiV1Config',
 ]
 
 MIDDLEWARE = [
