@@ -53,7 +53,9 @@ h2 {
 .block {
     background-color: #FFFFFF;
     padding: 10px 20px;
-    border-radius: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /*
@@ -243,36 +245,45 @@ button:hover {
 
 /* FORMS */
 .user-form-block {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 450px;
     margin: 40px auto;
     padding: 20px;
 }
 
-.user-form-block h1 {
+.costs-form-block {
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.form-block h1 {
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.user-form-block form {
+.form-block form {
     display: flex;
     flex-direction: column;
     text-align: center;
 }
 
-.user-form-block input, .user-form-block button {
+.form-block input, .form-block select, .form-block textarea, .form-block button {
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.user-form-block button {
+.form-block input:focus, .form-block select:focus, .form-block textarea:focus, .form-block button:focus {
+    border-color: #3399FF;
+}
+
+.form-block textarea {
+    resize: none;
+}
+
+.form-block button {
     text-align: center;
     margin: 0 auto;
     font-size: 15px;

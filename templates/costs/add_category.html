@@ -1,12 +1,25 @@
 {% extends 'base.html' %}
-{% load static %}
-
 
 {% block content %}
-<div class="block add-category-block">
-    <h2>Добавить категорию</h2>
+<div class="block costs-form-block form-block">
+    <h1>Добавить категорию</h1>
     <form method="post">{% csrf_token %}
-        {{ form.as_table }}
+        {% csrf_token %}
+        {% for f in form %}
+            {{ f }}
+            {% if f.errors %}
+                {% for error in f.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        {% if form.non_field_errors %}
+          <div class="error-message">
+            {% for error in form.non_field_errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+        {% endif %}
         <button type="submit" class="button">Добавить</button>
     </form>
 </div>

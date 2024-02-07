@@ -1,9 +1,10 @@
 from django import forms
 from django.db.models import Q
 from .models import Cost, CostCategory
+from users.forms import AddPlaceholderFormMixin
 
 
-class AddCostCategoryForm(forms.ModelForm):
+class AddCostCategoryForm(forms.ModelForm, AddPlaceholderFormMixin):
     """ Форма добавления новой категории """
     class Meta:
         model = CostCategory
@@ -16,9 +17,10 @@ class AddCostCategoryForm(forms.ModelForm):
         """
         self.user = kwargs.pop('user')
         super(AddCostCategoryForm, self).__init__(*args, **kwargs)
+        self.add_placeholder()
 
 
-class AddCostForm(forms.ModelForm):
+class AddCostForm(forms.ModelForm, AddPlaceholderFormMixin):
     """ Форма добавления новой траты """
     class Meta:
         model = Cost
@@ -34,3 +36,4 @@ class AddCostForm(forms.ModelForm):
         self.fields['category'].queryset = CostCategory.objects.filter(
             Q(user=self.user) | Q(is_custom=False)
         )
+        self.add_placeholder()

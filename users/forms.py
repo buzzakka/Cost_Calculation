@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm, PasswordChangeForm
 
 
 class AddPlaceholderFormMixin:
@@ -32,6 +32,12 @@ class CustomAuthenticationForm(AuthenticationForm, AddPlaceholderFormMixin):
 
 
 class CustomPasswordResetForm(PasswordResetForm, AddPlaceholderFormMixin):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.add_placeholder()
+
+
+class CustomChangePasswordForm(PasswordChangeForm, AddPlaceholderFormMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.add_placeholder()
