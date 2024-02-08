@@ -8,6 +8,7 @@ User = get_user_model()
 
 class UserFormsTest(TestCase):
     """ Тестирование формы регистрации пользователя """
+
     @classmethod
     def setUpTestData(cls):
         cls.guest_client = Client()

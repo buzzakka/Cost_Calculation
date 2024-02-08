@@ -6,6 +6,7 @@ from apps.users.forms import AddPlaceholderFormMixin
 
 class AddCostCategoryForm(forms.ModelForm, AddPlaceholderFormMixin):
     """ Форма добавления новой категории """
+
     class Meta:
         model = CostCategory
         fields = ('name',)
@@ -22,6 +23,7 @@ class AddCostCategoryForm(forms.ModelForm, AddPlaceholderFormMixin):
 
 class AddCostForm(forms.ModelForm, AddPlaceholderFormMixin):
     """ Форма добавления новой траты """
+
     class Meta:
         model = Cost
         fields = ('value', 'category', 'description', 'date')

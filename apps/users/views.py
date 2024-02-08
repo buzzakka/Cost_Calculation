@@ -12,6 +12,7 @@ from .forms import UserRegisterForm, CustomAuthenticationForm, CustomPasswordRes
 
 class UnauthorizedOnlyMixin(View):
     """ Миксин для доступа к странице только неавторизованных пользователей """
+
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse_lazy('costs:main'))

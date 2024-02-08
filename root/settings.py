@@ -4,13 +4,13 @@ from django.urls import reverse_lazy
 from dotenv import dotenv_values
 
 # загрузка секретных ключей из файла .env
-config = dotenv_values(".env")
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config["DJANGO_SECRET_KEY"]
+SECRET_KEY = config['DJANGO_SECRET_KEY']
 
-DEBUG = True
+DEBUG = config['DEBUG']
 
 ALLOWED_HOSTS = []
 
@@ -98,13 +98,11 @@ STATIC_ROOT = BASE_DIR / 'static'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 AUTH_USER_MODEL = 'users.CustomUser'
 
 AUTHENTICATION_BACKENDS = [
     'apps.users.backends.CustomUserBackend'
 ]
-
 
 EMAIL_HOST = config['EMAIL_HOST']
 EMAIL_PORT = config['EMAIL_PORT']
@@ -116,10 +114,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
-
 LOGIN_URL = reverse_lazy('users:login')
 LOGIN_REDIRECT_URL = reverse_lazy('costs:main')
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

@@ -12,6 +12,7 @@ class CustomAPITestCase(APITestCase):
     """
     Класс с инициализацией стандартных объектов в setUpTestData
     """
+
     @classmethod
     def setUpTestData(cls):
         cls.user = User.objects.create_user(username='user', password='password')
@@ -31,6 +32,7 @@ class CustomAPITestCase(APITestCase):
 
 class CommonCategoriesTest(CustomAPITestCase):
     """ Тестирование стандартых эндпоинтов стандартных категорий """
+
     def test_get_all_standart_categories(self):
         """ Получение всех стандартных категорий """
         url = reverse('api_v1:common_categories-list')
@@ -51,7 +53,7 @@ class CommonCategoriesTest(CustomAPITestCase):
         """ Получение информации о стандартной категории """
         url = reverse('api_v1:common_categories-detail', kwargs={'pk': 3})
         result = {'id': 3, 'name': 'Standard Category 1'}
-        response = self.client.get(url,  headers=self.headers)
+        response = self.client.get(url, headers=self.headers)
         self.assertEquals(response.status_code, Status.OK)
         self.assertEqual(response.data, result)
 
@@ -60,7 +62,6 @@ class CommonCategoriesTest(CustomAPITestCase):
         url = reverse('api_v1:common_categories-detail', kwargs={'pk': 2})
         response = self.client.get(url, headers=self.headers)
         self.assertEqual(response.status_code, Status.NOT_FOUND)
-
 
     def test_get_standart_categories_without_authorization(self):
         """ Попытка получения стандартных категорий неавторизованного пользователя """
@@ -71,6 +72,7 @@ class CommonCategoriesTest(CustomAPITestCase):
 
 class CustomCategoriesTest(CustomAPITestCase):
     """ Тестирование эндпоинтов кастомных категорий """
+
     def test_get_all_custom_categories_list(self):
         """ Получение всех кастомных категорий пользователь user """
         url = reverse('api_v1:custom_categories-list')
@@ -222,6 +224,7 @@ class CustomCategoriesTest(CustomAPITestCase):
 
 class CostsTest(CustomAPITestCase):
     """ Тестирование эндпоинтов Сost """
+
     @classmethod
     def setUpTestData(cls):
         super().setUpTestData()

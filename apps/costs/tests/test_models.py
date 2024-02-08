@@ -100,7 +100,8 @@ class CostTestCase(TestCase):
         cls.user = get_user_model().objects.create_user(username='user', email='user@mail.com', password='qpwoer!@#1')
         cls.standart_category = CostCategory.objects.create(name='Standard', is_custom=False)
         cls.custom_category = CostCategory.objects.create(name='Custom', user=cls.user)
-        Cost.objects.create(value=1500.23, user=cls.user, category=cls.standart_category, description='Описание затраты',
+        Cost.objects.create(value=1500.23, user=cls.user, category=cls.standart_category,
+                            description='Описание затраты',
                             date='2023-10-10')
 
     def test_cost_with_standart_category_values(self):

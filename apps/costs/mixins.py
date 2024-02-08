@@ -4,6 +4,7 @@ from django.urls import Resolver404
 
 class UsersObjectMixin(LoginRequiredMixin):
     """ Миксин, который проверяет, относится ли данная категория к текущему пользователю """
+
     def is_users_object(self, request):
         object = self.get_object()
         return object.user == request.user
@@ -16,6 +17,7 @@ class UsersObjectMixin(LoginRequiredMixin):
 
 class AddUserToNewObjectMixin(LoginRequiredMixin):
     """ Миксин, который добавляет пользователя к новому объекту """
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user

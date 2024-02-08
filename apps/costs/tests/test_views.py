@@ -10,6 +10,7 @@ User = get_user_model()
 
 class ViewsTest(TestCase):
     maxDiff = None
+
     @classmethod
     def setUpTestData(cls):
         cls.std_category = CostCategory.objects.create(name='std', is_custom=False)
@@ -94,7 +95,7 @@ class ViewsTest(TestCase):
                 2023: {
                     1: [
                         {'id': 3, 'value': 3, 'category': self.std_category, 'description': 'descr 3',
-                        'date': date(2023, 1, 1)}
+                         'date': date(2023, 1, 1)}
                     ],
                 }
             },
