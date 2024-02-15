@@ -1,18 +1,16 @@
 from pathlib import Path
-
+import os
 from django.urls import reverse_lazy
-from dotenv import dotenv_values
-
-# загрузка секретных ключей из файла .env
-config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config['DJANGO_SECRET_KEY']
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'change_me')
 
-DEBUG = config['DEBUG']
+DEBUG = os.getenv('DJANGO_DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:1337']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,8 +63,12 @@ WSGI_APPLICATION = 'root.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -104,10 +106,10 @@ AUTHENTICATION_BACKENDS = [
     'apps.users.backends.CustomUserBackend'
 ]
 
-EMAIL_HOST = config['EMAIL_HOST']
-EMAIL_PORT = config['EMAIL_PORT']
-EMAIL_HOST_USER = config['EMAIL_HOST_USER']
-EMAIL_HOST_PASSWORD = config['EMAIL_HOST_PASSWORD']
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
