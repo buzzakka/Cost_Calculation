@@ -3,7 +3,7 @@ from apps.costs.models import Cost, CostCategory
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
-    """ Сериализатор для категорий трат """
+    """Сериализатор для категорий трат"""
 
     class Meta:
         model = CostCategory
@@ -11,7 +11,7 @@ class CategoriesSerializer(serializers.ModelSerializer):
 
 
 class CostsSerializer(serializers.ModelSerializer):
-    """ Сериализатор для затрат пользователя """
+    """Сериализатор для затрат пользователя"""
 
     # category = CategoriesSerializer(read_only=True)
 

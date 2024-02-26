@@ -9,7 +9,7 @@ from apps.costs.models import Cost, CostCategory
 
 
 class StandartCategoriesAPIView(ReadOnlyModelViewSet):
-    """ Предоставляет список стандартных (общих) категорий  """
+    """Предоставляет список стандартных (общих) категорий"""
     queryset = CostCategory.objects.filter(is_custom=False)
     serializer_class = CategoriesSerializer
     permission_classes = (IsAuthenticated,)
@@ -17,7 +17,7 @@ class StandartCategoriesAPIView(ReadOnlyModelViewSet):
 
 
 class CustomCategoriesAPIViewSet(ModelViewSet):
-    """ Предоставляет список категорий пользователя """
+    """Предоставляет список категорий пользователя"""
     queryset = CostCategory.objects.filter(is_custom=True)
     serializer_class = CategoriesSerializer
     permission_classes = (IsAuthenticated,)
@@ -25,12 +25,12 @@ class CustomCategoriesAPIViewSet(ModelViewSet):
     filterset_fields = ('id', 'name')
 
     def perform_create(self, serializer):
-        # Устанавливаем текущего пользователя в поле "user" модели CostCategory
+        """Устанавливаем текущего пользователя в поле "user" модели CostCategory"""
         serializer.save(user=self.request.user)
 
 
 class CostsAPIViewSet(ModelViewSet):
-    """ Предоставляет список затра пользователя с подробной информацией """
+    """Предоставляет список затра пользователя с подробной информацией"""
     queryset = Cost.objects.order_by('-date')
     serializer_class = CostsSerializer
     permission_classes = (IsAuthenticated,)
@@ -38,5 +38,5 @@ class CostsAPIViewSet(ModelViewSet):
     filterset_fields = ('id', 'value', 'category__id', 'category__name', 'description')
 
     def perform_create(self, serializer):
-        # Устанавливаем текущего пользователя в поле "user" модели Cost
+        """Устанавливаем текущего пользователя в поле "user" модели Cost"""
         serializer.save(user=self.request.user)
